@@ -13,40 +13,40 @@ import org.springframework.context.annotation.Configuration;
 import com.qcom.rabbitmq.receiver.Receiver;
 
 @Configuration
-public class MessageSubscriber {
+public class MessageSubscriber2 {
 	
-	static final String topicExchangeName1 = "spring-boot-exchange";
+	static final String topicExchangeName2 = "spring-boot-exchange";
 
-    static final String queueName1 = "spring-boot";
+    static final String queueName2 = "spring-boot-2";
 
-    @Bean(name="queue1")
+    @Bean(name="queue2")
     Queue queue() {
-        return new Queue(queueName1, false);
+        return new Queue(queueName2, false);
     }
 
-    @Bean(name="exchange1")
+    @Bean(name="exchange2")
     TopicExchange exchange() {
-        return new TopicExchange(topicExchangeName1);
+        return new TopicExchange(topicExchangeName2);
     }
 
-    @Bean(name="binding1")
-    Binding binding(Queue queue1, TopicExchange exchange1) {
-        return BindingBuilder.bind(queue1).to(exchange1).with("foo.bar.#");
+    @Bean(name="binding2")
+    Binding binding(Queue queue2, TopicExchange exchange2) {
+        return BindingBuilder.bind(queue2).to(exchange2).with("foo.bar.#");
     }
 
-    @Bean(name="container1")
+    @Bean(name="container2")
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-            MessageListenerAdapter listenerAdapter1) {
+            MessageListenerAdapter listenerAdapter2) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(queueName1);
-        container.setMessageListener(listenerAdapter1);
+        container.setQueueNames(queueName2);
+        container.setMessageListener(listenerAdapter2);
         return container;
     }
 
-    @Bean(name="listenerAdapter1")
+    @Bean(name="listenerAdapter2")
     MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+        return new MessageListenerAdapter(receiver, "receiveMessage2");
     }
 
 }
