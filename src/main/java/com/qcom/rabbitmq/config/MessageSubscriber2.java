@@ -31,7 +31,7 @@ public class MessageSubscriber2 {
 
     @Bean(name="binding2")
     Binding binding(Queue queue2, TopicExchange exchange2) {
-        return BindingBuilder.bind(queue2).to(exchange2).with("foo.bar.#");
+        return BindingBuilder.bind(queue2).to(exchange2).with("*.bar.#");
     }
 
     @Bean(name="container2")
